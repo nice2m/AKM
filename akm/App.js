@@ -1,0 +1,58 @@
+
+import React from 'react';
+import {
+  Text,
+  Button,
+  View
+} from 'react-native';
+
+import ScrollableTabView,{ DefaultTabBar } from 'react-native-scrollable-tab-view';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+
+const HomeScreen = ({ navigation }) => {
+  return (
+    
+    <Button
+      title="Go to Jane's profile"
+      onPress={() =>
+        navigation.navigate('Profile', { name: 'Jane' })
+      }
+    />
+  );
+};
+const ProfileScreen = ({ navigation, route }) => {
+  return (
+    
+      <ScrollableTabView
+    style={{ marginTop: 0 }}
+    initialPage={1}
+    renderTabBar={() => <DefaultTabBar />}
+  >
+    <Text tabLabel='Tab #1'>My</Text>
+    <Text tabLabel='Tab #2'>favorite</Text>
+    <Text tabLabel='Tab #3'>project</Text>
+  </ScrollableTabView>    
+    
+  );
+  
+};
+
+export default () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
